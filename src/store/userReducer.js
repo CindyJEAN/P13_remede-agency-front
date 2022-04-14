@@ -5,7 +5,7 @@ export default function userReducer(state = {}, action) {
         ...state,
         msg: "loading",
       };
-    case "recieved_user_data":
+    case "received_user_data":
       return {
         ...state,
         msg: "",

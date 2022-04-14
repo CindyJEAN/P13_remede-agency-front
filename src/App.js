@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 function App() {
   const dispatch = useDispatch();
-  const app = useSelector((state) => state.userReducer);
+  const app = useSelector((state) => state.user);
 
   console.log("app", app);
   function load() {
