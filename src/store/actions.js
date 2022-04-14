@@ -1,7 +1,12 @@
+/**
+ * @typedef {( "loading_user_data" | "received_user_data" )} typeAction
+ */
+
+
 function getUserData() {
   return async (dispatch) => {
     dispatch({
-      type: "loading_user_data",
+      /** @type {typeAction} */ type: "loading_user_data",
     });
     try {
       const response = await fetch(
