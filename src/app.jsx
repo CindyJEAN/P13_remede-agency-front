@@ -1,9 +1,9 @@
-import React from "react";
-import "./css/main.css";
 // import { getUserData } from "./store/actions";
 // import { useDispatch, useSelector } from "react-redux";
+import "./css/main.css";
 import Navbar from "./components/navbar/navbar";
 import { Outlet } from "react-router-dom";
+import React from "react";
 
 // /**
 //  * @typedef {import("./store/store").test} test

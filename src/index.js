@@ -1,16 +1,16 @@
-import React from "react";
+import "./css/main.css";
 import * as ReactDOMClient from "react-dom/client";
 import * as serviceWorker from "./serviceWorker";
-import store from "./store/store";
-import { Provider } from "react-redux";
-import Home from "./pages/home/home";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Navbar from "./components/navbar/navbar";
-import Login from "./pages/login/login";
-import Profile from "./pages/profile/profile";
-import "./css/main.css";
 import Footer from "./components/footer/footer";
+import Home from "./pages/home/home";
+import Login from "./pages/login/login";
+import Navbar from "./components/navbar/navbar";
 import NotFound from "./pages/notFound/notFound";
+import Profile from "./pages/profile/profile";
+import { Provider } from "react-redux";
+import React from "react";
+import store from "./store/store";
 
 const root = ReactDOMClient.createRoot(document.getElementById("root"));
 

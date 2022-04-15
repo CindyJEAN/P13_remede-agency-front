@@ -2,7 +2,6 @@
  * @typedef {( "loading_user_data" | "received_user_data" )} typeAction
  */
 
-
 function getUserData() {
   return async (dispatch) => {
     dispatch({
