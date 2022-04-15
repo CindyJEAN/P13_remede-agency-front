@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   return (
@@ -21,18 +22,15 @@ export default function Login() {
               <label for="remember-me">Remember me</label>
             </div>
             {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-            <a href="./user.html" className="sign-in-button">
+            <Link to="/login" className="sign-in-button">
               Sign In
-            </a>
-            {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
+            </Link>
+            {/* <!-- TODO SHOULD BE THE BUTTON BELOW --> */}
             {/* <!-- <button className="sign-in-button">Sign In</button> --> */}
             {/* <!--  --> */}
           </form>
         </section>
       </main>
-      <footer className="footer">
-        <p className="footer-text">Copyright 2020 Argent Bank</p>
-      </footer>
     </>
   );
 }
