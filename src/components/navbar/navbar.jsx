@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import React from "react";
 
-export default function Navbar() {
+export default function Navbar({ isLoggedIn }) {
   return (
     <nav className="main-nav">
-      <Link to="/" className="main-nav-logo" >
+      <Link to="/" className="main-nav-logo">
         <img
           className="main-nav-logo-image"
           src="./img/argentBankLogo.png"
@@ -12,14 +12,7 @@ export default function Navbar() {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      <div>
-        <Link to="/login" className="main-nav-item">
-          <i className="fa fa-user-circle"></i>
-          Sign In
-        </Link>
-      </div>
-      {/* TODO */}
-      {/* {connected && (
+      {isLoggedIn ? (
         <div>
           <Link className="main-nav-item" to="/profile">
             <i className="fa fa-user-circle"></i>
@@ -30,7 +23,14 @@ export default function Navbar() {
             Sign Out
           </Link>
         </div>
-      )} */}
+      ) : (
+        <div>
+          <Link to="/login" className="main-nav-item">
+            <i className="fa fa-user-circle"></i>
+            Sign In
+          </Link>
+        </div>
+      )}
     </nav>
   );
 }

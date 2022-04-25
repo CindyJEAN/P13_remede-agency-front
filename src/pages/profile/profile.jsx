@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function Profile() {
+  //si pas info dans redux => action pour aller chercher les infos
   return (
     <>
       <main className="main bg-dark">

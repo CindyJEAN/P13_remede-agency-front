@@ -8,16 +8,31 @@
  */
 export default function userReducer(state = {}, action) {
   switch (action.type) {
-    case "loading_user_data":
+    // case "loading_user_data":
+    //   return {
+    //     ...state,
+    //     msg: "loading",
+    //   };
+    // case "received_user_data":
+    //   return {
+    //     ...state,
+    //     msg: "",
+    //     data: action.payload,
+    //   };
+    case "authenticating_user":
       return {
         ...state,
-        msg: "loading",
+        msg: "authenticating user",
       };
-    case "received_user_data":
+    case "authenticated_user":
       return {
         ...state,
-        msg: "",
-        data: action.payload,
+        msg: "user authenticated",
+        loggedIn: true,
+        data: {
+          ...state.data,
+          token: action.payload,
+        },
       };
     default:
       return state;

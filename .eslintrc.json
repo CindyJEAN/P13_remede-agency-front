@@ -132,7 +132,8 @@
     ],
     "multiline-ternary": [
       "error",
-      "always-multiline"
+      // "always-multiline"
+      "never"
     ],
     "lines-between-class-members": [
       "error",

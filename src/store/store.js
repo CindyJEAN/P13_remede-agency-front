@@ -4,14 +4,19 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 
 /**
- * @typedef {Object} test
+ * @typedef {Object} store
  * @property {Object} user
  */
 
 function importFromLocalStorage() {
+  const token = window.localStorage.getItem("token");
   return {
     user: {
       msg: "init",
+      loggedIn: token ? true : false, //null
+      data: {
+        token,
+      },
     },
   };
 }
