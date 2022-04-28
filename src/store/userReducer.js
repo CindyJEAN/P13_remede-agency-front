@@ -1,8 +1,6 @@
 /**
- * [default description]
- *
- * @param   {Object}  state   [state description]
- * @param   {Object}  action  [action description]
+ * @param   {Object}  state
+ * @param   {Object}  action
  * @param   {import("./actions").typeAction} action.type
  * @param   {Object}  action.payload
  */

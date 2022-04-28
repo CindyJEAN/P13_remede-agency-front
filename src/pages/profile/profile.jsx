@@ -6,21 +6,20 @@ import { getUserData } from "../../store/actions";
  * @typedef {import("../../store/store").store} store
  */
 
+/**
+ * @param {Object} props
+ * @param {String} props.token
+ */
 export default function Profile({ token }) {
   const dispatch = useDispatch();
   // const [userData, setUserData] = useState(useSelector((/** @type store */ state) => state.user.data));
-
   // useEffect(() => {
   //   if (userData === null) {
   //     dispatch(getUserData(token));
   //   }
-  //   // const data = useSelector((/** @type store */ state) => state.user.data);
-  //   // console.log(data);
-  //   // setUserData(data);
   // }, []);
 
   const userData = useSelector((/** @type store */ state) => state.user.data);
-  // console.log(userData);
   if (userData === null) {
     dispatch(getUserData(token));
   }

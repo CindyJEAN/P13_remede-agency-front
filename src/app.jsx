@@ -5,7 +5,7 @@ import {
   BrowserRouter as Router,
   Routes,
 } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Footer from "./components/footer/footer";
 import Home from "./pages/home/home";
 import Login from "./pages/login/login";

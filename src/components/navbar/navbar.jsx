@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import React from "react";
 
+/**
+ * @param {Object} props
+ * @param {Boolean} props.isLoggedIn
+ */
 export default function Navbar({ isLoggedIn }) {
   return (
     <nav className="main-nav">

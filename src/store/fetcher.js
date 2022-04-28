@@ -6,6 +6,7 @@ const headers = {
 let server = "";
 
 /**
+ * fetch data
  * @param {("GET"|"POST"|"PUT"|"PATCH"|"DELETE")} method
  * @param {String} url
  * @param {Object} [body]
@@ -28,6 +29,11 @@ function setServerBaseUrl(url) {
   server = url;
 }
 
+/**
+ * sets authorization token in headers
+ * @param   {String}  token
+ * @return  {Void}
+ */
 function setBearer(token) {
   headers.Authorization = "Bearer " + token;
 }
