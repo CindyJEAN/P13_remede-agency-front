@@ -2,7 +2,8 @@
  * @typedef {( "loading_user_data"
  * | "received_user_data"
  * | "authenticating_user"
- * | "authenticated_user" )} typeAction
+ * | "authenticated_user"
+ * | "log_user_out" )} typeAction
  */
 
 import { fetcher, setBearer, setServerBaseUrl } from "./fetcher";
@@ -30,7 +31,7 @@ function getUserData(token) {
   };
 }
 
-function loggingUser(userName, password) {
+function loggingInUser(userName, password, rememberUser) {
   return async (dispatch) => {
     dispatch({
       /** @type {typeAction} */ type: "authenticating_user",
@@ -45,12 +46,11 @@ function loggingUser(userName, password) {
       setBearer(data.body.token);
       dispatch({
         /** @type {typeAction} */ type: "authenticated_user",
-        payload: data.body.token,
+        payload: { token: data.body.token, rememberUser },
       });
 
       window.localStorage.setItem("token", data.body.token);
       window.location.href = "http://localhost:3000/profile";
-
     } catch (error) {
       console.error(error);
       throw error;
@@ -58,4 +58,16 @@ function loggingUser(userName, password) {
   };
 }
 
-export { getUserData, loggingUser };
+function loggingOutUser() {
+  return async (dispatch, getState) => {
+    const rememberUser = getState().user.rememberUser;
+    if (!rememberUser) {
+      window.localStorage.removeItem("token");
+    }
+    dispatch({
+      /** @type {typeAction} */ type: "log_user_out",
+    });
+  };
+}
+
+export { getUserData, loggingInUser, loggingOutUser };

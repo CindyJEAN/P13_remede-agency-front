@@ -12,12 +12,6 @@ import { getUserData } from "../../store/actions";
  */
 export default function Profile({ token }) {
   const dispatch = useDispatch();
-  // const [userData, setUserData] = useState(useSelector((/** @type store */ state) => state.user.data));
-  // useEffect(() => {
-  //   if (userData === null) {
-  //     dispatch(getUserData(token));
-  //   }
-  // }, []);
 
   const userData = useSelector((/** @type store */ state) => state.user.data);
   if (userData === null) {

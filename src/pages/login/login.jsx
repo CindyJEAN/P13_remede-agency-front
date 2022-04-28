@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch , useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { Link } from "react-router-dom";
-import { loggingUser } from "../../store/actions";
+import { loggingInUser } from "../../store/actions";
 
 /**
  * @typedef {import("../../store/store").store} store
@@ -12,30 +12,34 @@ export default function Login() {
 
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberUser, setRememberUser] = useState(false);
 
   /**
    * Change input values
    */
   function handleChange(event) {
     const type = event.target.id;
-    if (type === "username") {
-      setUserName(event.target.value);
-      return;
-    }
-    if (type === "password") {
-      setPassword(event.target.value);
-      return;
+    switch (type) {
+      case "username":
+        setUserName(event.target.value);
+        break;
+      case "password":
+        setPassword(event.target.value);
+        break;
+      case "remeber-me":
+        setRememberUser(!rememberUser);
+        break;
+      default:
+        return;
     }
   }
 
   function submit(event) {
     event.stopPropagation();
     event.preventDefault();
-    dispatch(loggingUser(userName, password));
+    dispatch(loggingInUser(userName, password, rememberUser));
   }
-
-  const state = useSelector((/** @type store */ state) => state.user);
-  // console.log("state", state);
+  // const state = useSelector((/** @type store */ state) => state.user);
 
   return (
     <>
@@ -63,14 +67,9 @@ export default function Login() {
               />
             </div>
             <div className="input-remember">
-              <input type="checkbox" id="remember-me" />
+              <input type="checkbox" id="remember-me" onChange={handleChange} />
               <label htmlFor="remember-me">Remember me</label>
             </div>
-            {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-            {/* <Link to="/login" className="sign-in-button">
-              Sign In
-            </Link> */}
-            {/* <!-- TODO SHOULD BE THE BUTTON BELOW --> */}
             <button className="sign-in-button" onClick={submit}>
               Sign In
             </button>

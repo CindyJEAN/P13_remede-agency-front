@@ -1,11 +1,23 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import React from "react";
+import { loggingOutUser } from "../../store/actions";
 
 /**
- * @param {Object} props
- * @param {Boolean} props.isLoggedIn
+ * @typedef {import("../../store/store").store} store
  */
-export default function Navbar({ isLoggedIn }) {
+
+export default function Navbar() {
+  const dispatch = useDispatch();
+
+  const isLoggedIn = useSelector(
+    (/** @type store */ state) => state.user.loggedIn
+  );
+
+  function logout() {
+    dispatch(loggingOutUser());
+  }
+
   return (
     <nav className="main-nav">
       <Link to="/" className="main-nav-logo">
@@ -22,7 +34,7 @@ export default function Navbar({ isLoggedIn }) {
             <i className="fa fa-user-circle"></i>
             Tony
           </Link>
-          <Link className="main-nav-item" to="/">
+          <Link className="main-nav-item" to="/" onClick={logout}>
             <i className="fa fa-sign-out"></i>
             Sign Out
           </Link>

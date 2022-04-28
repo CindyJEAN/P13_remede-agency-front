@@ -12,21 +12,14 @@ import Login from "./pages/login/login";
 import Navbar from "./components/navbar/navbar";
 import NotFound from "./pages/notFound/notFound";
 import Profile from "./pages/profile/profile";
-import { useSelector } from "react-redux";
-/**
- * @typedef {import("./store/store").store} store
- */
 
 function App() {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    useSelector((/** @type store */ state) => state.user.loggedIn)
-  );
 
   return (
     <div className="page">
       <Router>
-        <Navbar isLoggedIn={isLoggedIn} />
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
