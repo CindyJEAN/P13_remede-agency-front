@@ -32,7 +32,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route
             path="/profile"
-            element={token ? <Profile /> : <Navigate to="/login" />}
+            element={
+              token ? <Profile token={token} /> : <Navigate to="/login" />
+            }
           />
           <Route path="*" element={<NotFound />} />
         </Routes>

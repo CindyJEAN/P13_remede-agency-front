@@ -14,9 +14,8 @@ function importFromLocalStorage() {
     user: {
       msg: "init",
       loggedIn: token ? true : false, //null
-      data: {
-        token,
-      },
+      token,
+      data: null,
     },
   };
 }

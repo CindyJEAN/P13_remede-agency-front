@@ -1,7 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserData } from "../../store/actions";
 
-export default function Profile() {
-  //si pas info dans redux => action pour aller chercher les infos
+/**
+ * @typedef {import("../../store/store").store} store
+ */
+
+export default function Profile({ token }) {
+  const dispatch = useDispatch();
+  // const [userData, setUserData] = useState(useSelector((/** @type store */ state) => state.user.data));
+
+  // useEffect(() => {
+  //   if (userData === null) {
+  //     dispatch(getUserData(token));
+  //   }
+  //   // const data = useSelector((/** @type store */ state) => state.user.data);
+  //   // console.log(data);
+  //   // setUserData(data);
+  // }, []);
+
+  const userData = useSelector((/** @type store */ state) => state.user.data);
+  // console.log(userData);
+  if (userData === null) {
+    dispatch(getUserData(token));
+  }
+
   return (
     <>
       <main className="main bg-dark">
@@ -9,7 +32,7 @@ export default function Profile() {
           <h1>
             Welcome back
             <br />
-            Tony Jarvis!
+            {userData?.firstName + " " + userData?.lastName}!
           </h1>
           <button className="edit-button">Edit Name</button>
         </div>
