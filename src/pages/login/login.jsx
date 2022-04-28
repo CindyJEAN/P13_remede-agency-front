@@ -26,7 +26,7 @@ export default function Login() {
       case "password":
         setPassword(event.target.value);
         break;
-      case "remeber-me":
+      case "remember-me":
         setRememberUser(!rememberUser);
         break;
       default:

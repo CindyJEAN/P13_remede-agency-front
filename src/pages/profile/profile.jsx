@@ -12,22 +12,78 @@ import { getUserData } from "../../store/actions";
  */
 export default function Profile({ token }) {
   const dispatch = useDispatch();
+  const [isEditingName, setIsEditingName] = useState(false);
 
   const userData = useSelector((/** @type store */ state) => state.user.data);
   if (userData === null) {
     dispatch(getUserData(token));
   }
 
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  function handleChange(event) {
+    const type = event.target.id;
+    switch (type) {
+      case "username":
+        setFirstName(event.target.value);
+        break;
+      case "password":
+        setLastName(event.target.value);
+        break;
+      default:
+        return;
+    }
+  }
+
   return (
     <>
       <main className="main bg-dark">
         <div className="header">
-          <h1>
-            Welcome back
-            <br />
-            {userData?.firstName + " " + userData?.lastName}!
-          </h1>
-          <button className="edit-button">Edit Name</button>
+          {!isEditingName ? (
+            <React.Fragment>
+              <h1>
+                Welcome back
+                <br />
+                {userData?.firstName + " " + userData?.lastName}!
+              </h1>
+              <button
+                className="edit-button"
+                onClick={() => setIsEditingName(!isEditingName)}
+              >
+                Edit Name
+              </button>
+            </React.Fragment>
+          ) : (
+            <form>
+              <div className="input-wrapper">
+                <label htmlFor="username">Username</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  placeholder={userData?.firstName}
+                  value={firstName}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="input-wrapper">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  placeholder={userData?.lastName}
+                  value={lastName}
+                  onChange={handleChange}
+                />
+              </div>
+              <button
+                className="edit-button"
+                onClick={() => setIsEditingName(!isEditingName)}
+              >
+                Save
+              </button>
+            </form>
+          )}
         </div>
         <h2 className="sr-only">Accounts</h2>
         <section className="account">
