@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import React from "react";
-import { loggingOutUser } from "../../store/actions";
+import { signOutUser } from "../../store/actions";
 
 /**
  * @typedef {import("../../store/store").store} store
@@ -15,7 +15,7 @@ export default function Navbar() {
   );
 
   function logout() {
-    dispatch(loggingOutUser());
+    dispatch(signOutUser());
   }
 
   return (

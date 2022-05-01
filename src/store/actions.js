@@ -7,14 +7,11 @@
  */
 
 import { fetcher, setBearer, setServerBaseUrl } from "./fetcher";
+// import { useNavigate } from "react-router-dom";
 
 setServerBaseUrl("http://localhost:3001/api/v1");
 
-/**
- * @param   {String}  token  authentication token
- */
-function getUserData(token) {
-  setBearer(token);
+function getUserData() {
   return async (dispatch) => {
     dispatch({
       /** @type {typeAction} */ type: "loading_user_data",
@@ -31,7 +28,7 @@ function getUserData(token) {
   };
 }
 
-function loggingInUser(userName, password, rememberUser) {
+function signInUser(userName, password, rememberUser) {
   return async (dispatch) => {
     dispatch({
       /** @type {typeAction} */ type: "authenticating_user",
@@ -42,14 +39,15 @@ function loggingInUser(userName, password, rememberUser) {
         email: userName,
         password,
       });
-
       setBearer(data.body.token);
+      if (rememberUser) localStorage.setItem("token", data.body.token);
+      else sessionStorage.setItem("token", data.body.token);
+
       dispatch({
         /** @type {typeAction} */ type: "authenticated_user",
-        payload: { token: data.body.token, rememberUser },
       });
-
-      window.localStorage.setItem("token", data.body.token);
+      // const navigate = useNavigate();
+      // navigate("/profile");
       window.location.href = "http://localhost:3000/profile";
     } catch (error) {
       console.error(error);
@@ -58,16 +56,14 @@ function loggingInUser(userName, password, rememberUser) {
   };
 }
 
-function loggingOutUser() {
-  return async (dispatch, getState) => {
-    const rememberUser = getState().user.rememberUser;
-    if (!rememberUser) {
-      window.localStorage.removeItem("token");
-    }
+function signOutUser() {
+  return async (dispatch) => {
+    window.localStorage.removeItem("token");
+    window.sessionStorage.removeItem("token");
     dispatch({
       /** @type {typeAction} */ type: "log_user_out",
     });
   };
 }
 
-export { getUserData, loggingInUser, loggingOutUser };
+export { getUserData, signInUser, signOutUser };

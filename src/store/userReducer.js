@@ -16,8 +16,6 @@ export default function userReducer(state = {}, action) {
         ...state,
         msg: "user authenticated",
         loggedIn: true,
-        token: action.payload.token,
-        rememberUser: action.payload.rememberUser,
       };
     case "loading_user_data":
       return {
@@ -35,7 +33,6 @@ export default function userReducer(state = {}, action) {
         ...state,
         msg: "user logged out",
         loggedIn: false,
-        token: null,
         data: null,
       };
     default:

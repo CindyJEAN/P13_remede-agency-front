@@ -6,17 +6,13 @@ import { getUserData } from "../../store/actions";
  * @typedef {import("../../store/store").store} store
  */
 
-/**
- * @param {Object} props
- * @param {String} props.token
- */
-export default function Profile({ token }) {
+export default function Profile() {
   const dispatch = useDispatch();
   const [isEditingName, setIsEditingName] = useState(false);
 
   const userData = useSelector((/** @type store */ state) => state.user.data);
   if (userData === null) {
-    dispatch(getUserData(token));
+    dispatch(getUserData());
   }
 
   const [firstName, setFirstName] = useState("");

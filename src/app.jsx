@@ -5,16 +5,23 @@ import {
   BrowserRouter as Router,
   Routes,
 } from "react-router-dom";
-import React, { useState } from "react";
 import Footer from "./components/footer/footer";
 import Home from "./pages/home/home";
 import Login from "./pages/login/login";
 import Navbar from "./components/navbar/navbar";
 import NotFound from "./pages/notFound/notFound";
 import Profile from "./pages/profile/profile";
+import React from "react";
+import { useSelector } from "react-redux";
+
+/**
+ * @typedef {import("./store/store").store} store
+ */
 
 function App() {
-  const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const loggedIn = useSelector(
+    (/** @type store */ state) => state.user.loggedIn
+  );
 
   return (
     <div className="page">
@@ -25,9 +32,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route
             path="/profile"
-            element={
-              token ? <Profile token={token} /> : <Navigate to="/login" />
-            }
+            element={loggedIn ? <Profile /> : <Navigate to="/login" />}
           />
           <Route path="*" element={<NotFound />} />
         </Routes>

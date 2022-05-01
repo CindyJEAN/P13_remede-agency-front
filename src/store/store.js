@@ -1,6 +1,7 @@
 import { applyMiddleware, createStore } from "redux";
 import combinedReducer from "./reducers";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { setBearer } from "./fetcher";
 import thunk from "redux-thunk";
 
 /**
@@ -8,14 +9,14 @@ import thunk from "redux-thunk";
  * @property {Object} user
  */
 
-function importFromLocalStorage() {
-  const token = window.localStorage.getItem("token");
+function importFromStorage() {
+  const token = window.localStorage.getItem("token") || window.sessionStorage.getItem("token");
+  const loggedIn =  token ? true : false;
+  if (loggedIn) setBearer(token);
   return {
     user: {
       msg: "init",
-      loggedIn: token ? true : false, //null
-      rememberUser: false,
-      token,
+      loggedIn,
       data: null,
     },
   };
@@ -23,6 +24,6 @@ function importFromLocalStorage() {
 
 export default createStore(
   combinedReducer,
-  importFromLocalStorage(),
+  importFromStorage(),
   composeWithDevTools(applyMiddleware(thunk))
 );

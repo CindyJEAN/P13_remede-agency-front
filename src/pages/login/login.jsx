@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { Link } from "react-router-dom";
-import { loggingInUser } from "../../store/actions";
+import { signInUser } from "../../store/actions";
 
 /**
  * @typedef {import("../../store/store").store} store
@@ -37,7 +37,7 @@ export default function Login() {
   function submit(event) {
     event.stopPropagation();
     event.preventDefault();
-    dispatch(loggingInUser(userName, password, rememberUser));
+    dispatch(signInUser(userName, password, rememberUser));
   }
   // const state = useSelector((/** @type store */ state) => state.user);
 
