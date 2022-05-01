@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import { Link } from "react-router-dom";
 import { signInUser } from "../../store/actions";
+import { useDispatch } from "react-redux";
 
 /**
  * @typedef {import("../../store/store").store} store
@@ -39,7 +38,6 @@ export default function Login() {
     event.preventDefault();
     dispatch(signInUser(userName, password, rememberUser));
   }
-  // const state = useSelector((/** @type store */ state) => state.user);
 
   return (
     <>

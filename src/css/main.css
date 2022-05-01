@@ -193,6 +193,24 @@ body {
   margin-left: 0.25rem;
 }
 
+.edit-form {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 200px 200px;
+  column-gap: 1rem;
+}
+
+.edit-form .edit-button {
+  min-width: 100px;
+}
+
+.edit-form .edit-button:first-of-type {
+  justify-self: flex-end;
+}
+.edit-form .edit-button:last-of-type {
+  justify-self: flex-start;
+}
+
 .input-wrapper {
   display: flex;
   flex-direction: column;

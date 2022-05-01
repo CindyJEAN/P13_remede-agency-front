@@ -3,7 +3,9 @@
  * | "received_user_data"
  * | "authenticating_user"
  * | "authenticated_user"
- * | "log_user_out" )} typeAction
+ * | "log_user_out"
+ * | "editing_profile"
+ * | "edited_profile" )} actionType
  */
 
 import { fetcher, setBearer, setServerBaseUrl } from "./fetcher";
@@ -14,7 +16,7 @@ setServerBaseUrl("http://localhost:3001/api/v1");
 function getUserData() {
   return async (dispatch) => {
     dispatch({
-      /** @type {typeAction} */ type: "loading_user_data",
+      /** @type {actionType} */ type: "loading_user_data",
     });
     try {
       const data = await fetcher("POST", "/user/profile");
@@ -23,6 +25,7 @@ function getUserData() {
         payload: data.body,
       });
     } catch (error) {
+      console.log(error);
       throw error;
     }
   };
@@ -31,7 +34,7 @@ function getUserData() {
 function signInUser(userName, password, rememberUser) {
   return async (dispatch) => {
     dispatch({
-      /** @type {typeAction} */ type: "authenticating_user",
+      /** @type {actionType} */ type: "authenticating_user",
     });
 
     try {
@@ -44,7 +47,7 @@ function signInUser(userName, password, rememberUser) {
       else sessionStorage.setItem("token", data.body.token);
 
       dispatch({
-        /** @type {typeAction} */ type: "authenticated_user",
+        /** @type {actionType} */ type: "authenticated_user",
       });
       // const navigate = useNavigate();
       // navigate("/profile");
@@ -61,9 +64,32 @@ function signOutUser() {
     window.localStorage.removeItem("token");
     window.sessionStorage.removeItem("token");
     dispatch({
-      /** @type {typeAction} */ type: "log_user_out",
+      /** @type {actionType} */ type: "log_user_out",
     });
   };
 }
 
-export { getUserData, signInUser, signOutUser };
+function editProfile(firstName, lastName) {
+  return async (dispatch) => {
+    dispatch({
+      /** @type {actionType} */ type: "editing_profile",
+    });
+
+    try {
+      await fetcher("PUT", "/user/profile", {
+        firstName,
+        lastName,
+      });
+
+      dispatch({
+        /** @type {actionType} */ type: "edited_profile",
+        payload: { firstName, lastName },
+      });
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+}
+
+export { getUserData, signInUser, signOutUser, editProfile };

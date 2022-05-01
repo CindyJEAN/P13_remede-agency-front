@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import ProfileEditForm from "../../components/profileEditForm/profileEditForm";
 import { getUserData } from "../../store/actions";
 
 /**
@@ -13,23 +14,6 @@ export default function Profile() {
   const userData = useSelector((/** @type store */ state) => state.user.data);
   if (userData === null) {
     dispatch(getUserData());
-  }
-
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-
-  function handleChange(event) {
-    const type = event.target.id;
-    switch (type) {
-      case "username":
-        setFirstName(event.target.value);
-        break;
-      case "password":
-        setLastName(event.target.value);
-        break;
-      default:
-        return;
-    }
   }
 
   return (
@@ -51,34 +35,7 @@ export default function Profile() {
               </button>
             </React.Fragment>
           ) : (
-            <form>
-              <div className="input-wrapper">
-                <label htmlFor="username">Username</label>
-                <input
-                  type="text"
-                  id="firstName"
-                  placeholder={userData?.firstName}
-                  value={firstName}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="input-wrapper">
-                <label htmlFor="password">Password</label>
-                <input
-                  type="text"
-                  id="lastName"
-                  placeholder={userData?.lastName}
-                  value={lastName}
-                  onChange={handleChange}
-                />
-              </div>
-              <button
-                className="edit-button"
-                onClick={() => setIsEditingName(!isEditingName)}
-              >
-                Save
-              </button>
-            </form>
+            <ProfileEditForm isEditingName={isEditingName} setIsEditingName={setIsEditingName} />
           )}
         </div>
         <h2 className="sr-only">Accounts</h2>

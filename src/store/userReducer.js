@@ -1,7 +1,7 @@
 /**
  * @param   {Object}  state
  * @param   {Object}  action
- * @param   {import("./actions").typeAction} action.type
+ * @param   {import("./actions").actionType} action.type
  * @param   {Object}  action.payload
  */
 export default function userReducer(state = {}, action) {
@@ -34,6 +34,20 @@ export default function userReducer(state = {}, action) {
         msg: "user logged out",
         loggedIn: false,
         data: null,
+      };
+    case "editing_profile":
+      return {
+        ...state,
+        msg: "editing user profile",
+      };
+    case "edited_profile":
+      return {
+        ...state,
+        msg: "user profile edited",
+        data: {
+          ...state.data,
+          ...action.payload,
+        },
       };
     default:
       return state;

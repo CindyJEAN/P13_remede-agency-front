@@ -13,6 +13,7 @@ export default function Navbar() {
   const isLoggedIn = useSelector(
     (/** @type store */ state) => state.user.loggedIn
   );
+  const userData = useSelector((/** @type store */ state) => state.user.data);
 
   function logout() {
     dispatch(signOutUser());
@@ -32,7 +33,7 @@ export default function Navbar() {
         <div>
           <Link className="main-nav-item" to="/profile">
             <i className="fa fa-user-circle"></i>
-            Tony
+            {userData?.firstName}
           </Link>
           <Link className="main-nav-item" to="/" onClick={logout}>
             <i className="fa fa-sign-out"></i>
