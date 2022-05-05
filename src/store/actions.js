@@ -9,7 +9,6 @@
  */
 
 import { fetcher, setBearer, setServerBaseUrl } from "./fetcher";
-// import { useNavigate } from "react-router-dom";
 
 setServerBaseUrl("http://localhost:3001/api/v1");
 
@@ -31,6 +30,11 @@ function getUserData() {
   };
 }
 
+/**
+ * @param   {String}  userName
+ * @param   {String}  password
+ * @param   {Boolean}  rememberUser
+ */
 function signInUser(userName, password, rememberUser) {
   return async (dispatch) => {
     dispatch({
@@ -49,8 +53,6 @@ function signInUser(userName, password, rememberUser) {
       dispatch({
         /** @type {actionType} */ type: "authenticated_user",
       });
-      // const navigate = useNavigate();
-      // navigate("/profile");
       window.location.href = "http://localhost:3000/profile";
     } catch (error) {
       console.error(error);
@@ -69,6 +71,10 @@ function signOutUser() {
   };
 }
 
+/**
+ * @param   {String}  firstName
+ * @param   {String}  lastName
+ */
 function editProfile(firstName, lastName) {
   return async (dispatch) => {
     dispatch({

@@ -9,6 +9,10 @@ import thunk from "redux-thunk";
  * @property {Object} user
  */
 
+/**
+ * get data from storage and initialize redux state
+ * @return  {Object}  initial state
+ */
 function importFromStorage() {
   const token = window.localStorage.getItem("token") || window.sessionStorage.getItem("token");
   const loggedIn =  token ? true : false;

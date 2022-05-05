@@ -196,7 +196,7 @@ body {
 .edit-form {
   display: grid;
   justify-content: center;
-  grid-template-columns: 200px 200px;
+  grid-template-columns: 40% 40%;
   column-gap: 1rem;
 }
 
@@ -312,5 +312,9 @@ body {
 
   .transaction-button {
     width: 200px;
+  }
+
+  .edit-form {
+    grid-template-columns: 200px 200px;
   }
 }

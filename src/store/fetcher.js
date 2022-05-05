@@ -32,7 +32,6 @@ function setServerBaseUrl(url) {
 /**
  * sets authorization token in headers
  * @param   {String}  token
- * @return  {Void}
  */
 function setBearer(token) {
   headers.Authorization = "Bearer " + token;
