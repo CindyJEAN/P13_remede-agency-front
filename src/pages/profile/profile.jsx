@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileEditForm from "../../components/profileEditForm/profileEditForm";
 import { getUserData } from "../../store/actions";
@@ -12,9 +12,11 @@ export default function Profile() {
   const [isEditingName, setIsEditingName] = useState(false);
 
   const userData = useSelector((/** @type store */ state) => state.user.data);
-  if (userData === null) {
-    dispatch(getUserData());
-  }
+  useEffect(() => {
+    if (userData === null) {
+      dispatch(getUserData());
+    }
+  }, []);
 
   return (
     <>
@@ -35,7 +37,10 @@ export default function Profile() {
               </button>
             </React.Fragment>
           ) : (
-            <ProfileEditForm isEditingName={isEditingName} setIsEditingName={setIsEditingName} />
+            <ProfileEditForm
+              isEditingName={isEditingName}
+              setIsEditingName={setIsEditingName}
+            />
           )}
         </div>
         <h2 className="sr-only">Accounts</h2>

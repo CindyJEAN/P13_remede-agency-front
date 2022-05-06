@@ -2,6 +2,7 @@
  * @typedef {( "loading_user_data"
  * | "received_user_data"
  * | "authenticating_user"
+ * | "authenticating_user_rejected"
  * | "authenticated_user"
  * | "log_user_out"
  * | "editing_profile"
@@ -12,11 +13,16 @@ import { fetcher, setBearer, setServerBaseUrl } from "./fetcher";
 
 setServerBaseUrl("http://localhost:3001/api/v1");
 
+/**
+ * dispatches the action "loading_user_data", then tries to fetch the user profile.
+ * If it succeeds, the action "received_user_data" is dispatched, with the user profile data as payload.
+ */
 function getUserData() {
   return async (dispatch) => {
     dispatch({
       /** @type {actionType} */ type: "loading_user_data",
     });
+
     try {
       const data = await fetcher("POST", "/user/profile");
       dispatch({
@@ -31,6 +37,12 @@ function getUserData() {
 }
 
 /**
+ * dispatches the action "authenticating_user",
+ * then tries to sign in the user with a request taking email and password as parameters.
+ * If it succeeds :
+ * - the token received is set in the headers as authorization
+ * - if the rememberMe option is checked, the token is set in local storage
+ * - the action "authenticated_user" is dispatched.
  * @param   {String}  userName
  * @param   {String}  password
  * @param   {Boolean}  rememberUser
@@ -56,11 +68,17 @@ function signInUser(userName, password, rememberUser) {
       window.location.href = "http://localhost:3000/profile";
     } catch (error) {
       console.error(error);
+      dispatch({
+        /** @type {actionType} */ type: "authenticating_user_rejected",
+      });
       throw error;
     }
   };
 }
 
+/**
+ * removes the token from the storage and dispatches the action log_user_out
+ */
 function signOutUser() {
   return async (dispatch) => {
     window.localStorage.removeItem("token");
@@ -72,6 +90,9 @@ function signOutUser() {
 }
 
 /**
+ * dispatches the action "editing_profile",
+ * then tries to update the user profile with a request taking firstName and lastName as parameters.
+ * If it succeeds, the action "edited_profile" is dispatched, with firstName and lastName as payload.
  * @param   {String}  firstName
  * @param   {String}  lastName
  */

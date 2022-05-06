@@ -11,10 +11,15 @@ export default function userReducer(state = {}, action) {
         ...state,
         msg: "authenticating user",
       };
+    case "authenticating_user_rejected":
+      return {
+        ...state,
+        msg: "authenticating user failed",
+      };
     case "authenticated_user":
       return {
         ...state,
-        msg: "user authenticated",
+        msg: "",
         loggedIn: true,
       };
     case "loading_user_data":
@@ -25,13 +30,13 @@ export default function userReducer(state = {}, action) {
     case "received_user_data":
       return {
         ...state,
-        msg: "user data loaded",
+        msg: "",
         data: action.payload,
       };
     case "log_user_out":
       return {
         ...state,
-        msg: "user logged out",
+        msg: "",
         loggedIn: false,
         data: null,
       };
@@ -43,7 +48,7 @@ export default function userReducer(state = {}, action) {
     case "edited_profile":
       return {
         ...state,
-        msg: "user profile edited",
+        msg: "",
         data: {
           ...state.data,
           ...action.payload,

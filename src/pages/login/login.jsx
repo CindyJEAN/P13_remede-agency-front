@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { signInUser } from "../../store/actions";
-import { useDispatch } from "react-redux";
 
 /**
  * @typedef {import("../../store/store").store} store
@@ -12,6 +12,9 @@ export default function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [rememberUser, setRememberUser] = useState(false);
+  const loginFailed =
+    useSelector((/** @type store */ state) => state.user.msg) ===
+    "authenticating user failed";
 
   /**
    * Change input values
@@ -68,6 +71,9 @@ export default function Login() {
               <input type="checkbox" id="remember-me" onChange={handleChange} />
               <label htmlFor="remember-me">Remember me</label>
             </div>
+            {loginFailed && (
+              <p className="sign-in-error">Invalid username or password. Please try again.</p>
+            )}
             <button className="sign-in-button" onClick={submit}>
               Sign In
             </button>

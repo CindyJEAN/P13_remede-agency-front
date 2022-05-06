@@ -9,6 +9,7 @@ import { editProfile } from "../../store/actions";
  * @param {Object} props
  * @param {Boolean} props.isEditingName
  * @param {Function} props.setIsEditingName
+ * @component
  */
 export default function ProfileEditForm({ isEditingName, setIsEditingName }) {
   const dispatch = useDispatch();
